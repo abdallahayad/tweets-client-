@@ -1,7 +1,8 @@
 .comment {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   height: auto;
+  flex-direction: column;
 }
 .comment img {
   width: 30px;
@@ -23,7 +24,7 @@
 
 .commentBody .body {
   font-size: 14px;
-  margin: 0;
+  margin: 0.1rem 0;
   padding: 0.2rem;
   white-space: normal;
 }
