@@ -1,0 +1,30 @@
+.startCreate {
+  display: flex;
+  width: 40%;
+  align-content: center;
+  padding: 0.8rem;
+  margin: 10px auto;
+  border: 1px solid #161718;
+  border-radius: 1rem;
+  background: #242526;
+  color: rgba(204, 204, 204, 0.555);
+}
+.startCreate .userImageDiv {
+  max-width: 50px;
+  margin-right: 10px;
+}
+.userImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+.startCreateClick {
+  background: #3a3b3c;
+  width: 90%;
+  border-radius: 1rem;
+  padding: 15px;
+}
+.startCreateClick:hover,
+.startCreateClick:active {
+  cursor: pointer;
+}

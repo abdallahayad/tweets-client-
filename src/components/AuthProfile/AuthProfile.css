@@ -1,0 +1,11 @@
+.auth-profile-img {
+  width: 150px;
+  height: 150px;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+.auth-profile-img img {
+  width: 100%;
+  border-radius: inherit;
+  height: 100%;
+}

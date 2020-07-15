@@ -1,0 +1,49 @@
+.html,
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  overflow: scroll;
+  overflow-x: hidden;
+  background: #18191a;
+}
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+* {
+  box-sizing: border-box;
+}
+.App {
+  width: 100vw;
+}
+
+.form {
+  width: 400px;
+  margin: 10rem auto 0 auto;
+  color: white;
+  background: #242526;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+.label {
+  display: block;
+  margin: 0.5rem 0 0.5rem 0;
+  font-weight: bold;
+}
+
+.form-button {
+  width: 50%;
+  margin: 20px auto;
+  display: block;
+  font: inherit;
+  font-weight: bold;
+  outline: none;
+  border: 2px solid #002642;
+}
+.form-button:hover {
+  cursor: pointer;
+  color: white;
+  background: #02040f;
+}

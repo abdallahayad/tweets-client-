@@ -1,0 +1,117 @@
+.tweet {
+  width: 40%;
+  height: auto;
+  border: 1px solid #161718;
+  display: flex;
+  flex-direction: column;
+  background: #242526;
+  color: white;
+  padding: 0.8rem;
+  margin: 10px auto;
+  border-radius: 1rem;
+}
+.tweetBody {
+  margin-top: 10px;
+}
+.username {
+  margin: 0;
+}
+.tweetInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.tweetImg {
+  max-width: 50px;
+}
+.tweetImg img {
+  height: auto;
+  max-width: 100%;
+  border-radius: 50%;
+}
+.tweetDate {
+  margin-top: 15px;
+  margin-bottom: 0;
+  align-self: flex-end;
+}
+.tweetTime {
+  margin: 0;
+  align-self: flex-end;
+}
+.tweetStuff {
+  display: flex;
+  margin: 0;
+  font-size: 12px;
+}
+.tweetStuff p {
+  margin-right: 12px;
+}
+.tweetExpand,
+.tweetDelete {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #a8abaf;
+}
+.tweetDelete {
+  color: red;
+}
+.tweetExpand:hover,
+.tweetExpand:active,
+.tweetDelete:hover,
+.tweetDelete:active {
+  cursor: pointer;
+}
+.tweetHeader {
+  display: flex;
+  justify-content: space-between;
+}
+.input {
+  width: 100%;
+  outline: none;
+  border: 1px solid #002642;
+  font: inherit;
+  background: #3a3b3c;
+  border-radius: 1rem;
+  padding: 0.4rem;
+  margin: 0.8rem 0;
+  font-size: 0.9rem;
+  color: white;
+}
+.tweetActions {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  border-top: 1px solid #3e4042;
+  border-bottom: 1px solid #3e4042;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+}
+.likeButton,
+.commentButton {
+  background: none;
+  border: none;
+  color: #929498;
+  display: flex;
+  font-size: 1.1rem;
+  outline: none;
+}
+.liked {
+  color: #4080ff;
+  background: none;
+  border: none;
+  display: flex;
+  font-size: 1.1rem;
+  outline: none;
+}
+.likeButton:hover,
+.likeButton:active,
+.commentButton:hover,
+.commentButton:active,
+.liked:hover,
+.liked:active {
+  cursor: pointer;
+}

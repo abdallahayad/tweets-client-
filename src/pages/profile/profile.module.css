@@ -1,0 +1,79 @@
+.profile {
+  margin: 150px auto 0 auto;
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  color: white;
+}
+.imgContainer {
+  display: flex;
+  width: 40%;
+  justify-content: center;
+  align-items: center;
+}
+.profileImage {
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.profileImage img {
+  height: auto;
+  max-width: 100%;
+  border-radius: 50%;
+}
+.bio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  border-left: 1px solid #3e4042;
+}
+.bio div {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  align-self: center;
+  justify-content: center;
+  margin: 0.5rem;
+}
+.info {
+  border: 1px solid black;
+  background: #242526;
+  padding: 7px;
+  margin: 0;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  border-radius: 0.5rem;
+  word-break: break-all;
+}
+
+.bio div h3 {
+  margin: 0;
+  margin-bottom: 0.2rem;
+}
+.editBio {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  color: #a8abaf;
+}
+
+.editImage {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  color: #a8abaf;
+}
+
+.editBio:hover,
+.editBio:active,
+.editImage:hover,
+.editImage:active {
+  cursor: pointer;
+}

@@ -1,0 +1,53 @@
+.tweet {
+  width: 40%;
+  height: auto;
+  border: 1px solid #161718;
+  display: flex;
+  flex-direction: column;
+  background: #242526;
+  color: white;
+  padding: 0.8rem;
+  margin: 10px auto;
+  border-radius: 1rem;
+}
+.username {
+  width: 45px;
+  background: #3a3b3c;
+  height: 10px;
+  margin: 0.3rem;
+}
+.tweetImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #3a3b3c;
+}
+.tweetInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+.tweetHeader {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tweetBody {
+  margin-top: 10px;
+}
+.tweetBody div {
+  width: 100%;
+  height: 10px;
+  background: #3a3b3c;
+  margin: 0.3rem auto;
+}
+.tweetDate,
+.tweetTime {
+  width: 50px;
+  height: 10px;
+  background: #3a3b3c;
+  align-self: flex-end;
+  margin: 0.1rem 0;
+}

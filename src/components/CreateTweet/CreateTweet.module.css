@@ -1,0 +1,42 @@
+.form {
+  width: 45%;
+  z-index: 100;
+  background: #242526;
+  position: fixed;
+  margin: auto;
+  padding: 1rem;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0.5px 0.5px 0.5px black;
+  border-radius: 1rem;
+}
+.textArea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  outline: none;
+  background: #3a3b3c;
+  color: white;
+  margin: auto;
+  font: inherit;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+.createTweetButton {
+  width: 50%;
+  margin: 10px auto 0 auto;
+  display: block;
+  font: inherit;
+  font-weight: bold;
+  outline: none;
+  border: 2px solid #002642;
+}
+.createTweetButton:hover {
+  cursor: pointer;
+  color: white;
+  background: #02040f;
+}

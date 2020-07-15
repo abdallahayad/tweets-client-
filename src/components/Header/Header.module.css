@@ -1,0 +1,64 @@
+.header {
+  display: flex;
+  padding: 0 1rem;
+  justify-content: space-between;
+  align-items: center;
+  background: #242526;
+  color: white;
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 65px;
+  width: 100%;
+  border-bottom: 1px solid #3e4042;
+}
+
+.navItems ul {
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.navItems ul li {
+  display: inline-block;
+  margin: 0 0.2rem;
+}
+.navItems ul li:hover,
+.navItems ul li:active {
+  border-bottom: 3px solid white;
+}
+.navItems ul li a {
+  text-decoration: none;
+  color: inherit;
+}
+.headerAuthProfile {
+  display: flex;
+}
+.headerAuthProfile img {
+  width: 100%;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+.loadingImg {
+  width: 100%;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  background: #3a3b3c;
+}
+.headerActions {
+  display: flex;
+}
+.headerActions button {
+  border: none;
+  background: none;
+  color: white;
+  font-size: 16px;
+}
+.loadingHeaderAction {
+  width: 57.61px;
+  height: 15px;
+  background: #3a3b3c;
+}
