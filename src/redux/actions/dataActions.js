@@ -15,7 +15,7 @@ import axios from 'axios';
 export const createTweetAction = (tweet) => (dispatch) => {
   dispatch({ type: LOADING });
   axios
-    .post('/tweet/add', { body: tweet })
+    .post('/api/tweet/add', { body: tweet })
     .then((res) => {
       dispatch({ type: CREATE_TWEET_ACTION, payload: res.data });
       dispatch({ type: UNSHOW_CREATE_TWEET });
@@ -24,7 +24,7 @@ export const createTweetAction = (tweet) => (dispatch) => {
 };
 export const deleteTweet = (tweetId) => (dispatch) => {
   axios
-    .delete(`/tweet/${tweetId}`)
+    .delete(`/api/tweet/${tweetId}`)
     .then((res) => {
       dispatch({ type: DELETE_TWEET, payload: res.data.tweetId });
     })
@@ -32,7 +32,7 @@ export const deleteTweet = (tweetId) => (dispatch) => {
 };
 export const editBio = (bio) => (dispatch) => {
   axios
-    .post('/user/bio', bio)
+    .post('/api/user/bio', bio)
     .then((res) => {
       dispatch({ type: EDIT_BIO, payload: res.data });
     })
@@ -41,7 +41,7 @@ export const editBio = (bio) => (dispatch) => {
 
 export const editProfileImage = (formData, history) => (dispatch) => {
   axios
-    .post('/user/profilepic', formData)
+    .post('/api/user/profilepic', formData)
     .then((res) => {
       dispatch({ type: EDIT_PROFILE_IMG, payload: res.data.profileImage });
       history.push('/');
@@ -57,13 +57,13 @@ export const getFulltweetData = (tweetId) => (dispatch) => {
   );
 };
 export const likeATweet = (tweetId) => (dispatch) => {
-  axios.get(`/tweet/${tweetId}/like`).then((res) => {
+  axios.get(`/api/tweet/${tweetId}/like`).then((res) => {
     dispatch({ type: LIKE_TWEET, payload: res.data.likeDoc });
     dispatch({ type: INC_LIKE_COUNT, payload: res.data.likeDoc.tweetId });
   });
 };
 export const unlikeATweet = (tweetId) => (dispatch) => {
-  axios.get(`/tweet/${tweetId}/unlike`).then((res) => {
+  axios.get(`/api/tweet/${tweetId}/unlike`).then((res) => {
     dispatch({ type: UNLIKE_TWEET, payload: res.data.tweetId });
     dispatch({ type: DEC_LIKE_COUNT, payload: res.data.tweetId });
   });

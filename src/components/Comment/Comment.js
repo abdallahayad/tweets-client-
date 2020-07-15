@@ -1,6 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import styles from './Comment.module.css';
+import { NavLink } from 'react-router-dom';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 const Comment = (props) => {
@@ -18,7 +19,9 @@ const Comment = (props) => {
       <div className={styles.comment}>
         <div className={styles.user}>
           <img src={userImage} alt='user' />
-          <p>{username}</p>
+          <NavLink className={styles.userLink} to={`/users/${username}`}>
+            <p>{username}</p>
+          </NavLink>
         </div>
         <div className={styles.commentBody}>
           <p className={styles.body}>{body}</p>

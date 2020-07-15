@@ -8,6 +8,7 @@ import {
 } from '../../redux/actions/dataActions';
 import dayjs from 'dayjs';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import styles from './Tweet.module.css';
 import axios from 'axios';
 class Tweet extends Component {
@@ -34,7 +35,7 @@ class Tweet extends Component {
     this.setState({ comment: e.target.value });
   };
   deleteComment = (commentId, tweetId) => {
-    axios.delete(`/tweet/${tweetId}/${commentId}`).then((res) => {
+    axios.delete(`/api/tweet/${tweetId}/${commentId}`).then((res) => {
       this.setState({
         comments: this.state.comments.filter(
           (comment) => comment.commentId !== res.data.commentId
@@ -47,7 +48,7 @@ class Tweet extends Component {
     if (e.keyCode === 13) {
       this.setState({ comment: '' });
       axios
-        .post(`/tweet/${this.props.tweetId}/comment`, {
+        .post(`/api/tweet/${this.props.tweetId}/comment`, {
           body: this.state.comment,
         })
         .then((res) => {
@@ -61,7 +62,7 @@ class Tweet extends Component {
   };
   getFulltweetData = (source) => {
     axios
-      .get(`/tweet/${this.props.tweetId}`, { cancelToken: source.token })
+      .get(`/api/tweet/${this.props.tweetId}`, { cancelToken: source.token })
       .then((res) => {
         this.setState({ comments: res.data.comments });
       });
@@ -146,7 +147,12 @@ class Tweet extends Component {
             <div className={styles.tweetImg}>
               <img src={this.props.userImage} alt='user' />
             </div>
-            <h4 className={styles.username}>@{this.props.username}</h4>
+            <NavLink
+              className={styles.userLink}
+              to={`/users/${this.props.username}`}
+            >
+              <h4 className={styles.username}>@{this.props.username}</h4>
+            </NavLink>
           </div>
           <div>
             {deleteButton}

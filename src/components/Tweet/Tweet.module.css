@@ -107,11 +107,16 @@
   font-size: 1.1rem;
   outline: none;
 }
+.userLink {
+  text-decoration: none;
+  color: white;
+}
 .likeButton:hover,
 .likeButton:active,
 .commentButton:hover,
 .commentButton:active,
 .liked:hover,
-.liked:active {
+.liked:active,
+.userLink {
   cursor: pointer;
 }

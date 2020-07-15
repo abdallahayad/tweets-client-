@@ -63,7 +63,12 @@
   outline: none;
   color: red;
 }
+.userLink {
+  text-decoration: none;
+  color: white;
+}
 .commentRight button:active,
-.commentRight button:hover {
+.commentRight button:hover,
+.userLink {
   cursor: pointer;
 }

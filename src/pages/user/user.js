@@ -10,22 +10,24 @@ class user extends Component {
   };
   componentDidMount() {
     const username = this.props.match.params.username;
-    axios.get(`/user/${username}`).then((res) => {
+    axios.get(`/api/user/${username}`).then((res) => {
       this.setState({ user: res.data });
     });
   }
   componentDidUpdate(prevProps) {
     if (this.props.match.params.username !== prevProps.match.params.username) {
       const username = this.props.match.params.username;
-      axios.get(`/user/${username}`).then((res) => {
+      axios.get(`/api/user/${username}`).then((res) => {
         this.setState({ user: res.data });
       });
     }
   }
   follow = () => {
-    axios.get(`/${this.state.user.credentials.username}/follow`).then(() => {
-      this.props.setUser();
-    });
+    axios
+      .get(`/api/${this.state.user.credentials.username}/follow`)
+      .then(() => {
+        this.props.setUser();
+      });
   };
   render() {
     let followButton;

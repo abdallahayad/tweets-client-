@@ -15,8 +15,6 @@ import Header from './components/Header/Header';
 import axios from 'axios';
 let token = localStorage.FBIdToken;
 let refreshToken = localStorage.refreshToken;
-axios.defaults.baseURL =
-  'https://us-central1-my-social-app-fdb68.cloudfunctions.net/api';
 if (token) {
   const decodedToken = jwtDecode(localStorage.getItem('FBIdToken'));
   if (Date.now() >= decodedToken.exp * 1000) {

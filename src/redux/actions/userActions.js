@@ -10,7 +10,7 @@ import {
 export const loginUser = (userData, history) => (dispatch) => {
   dispatch({ type: LOADING });
   axios
-    .post('/login', userData)
+    .post('/api/login', userData)
     .then((res) => {
       dispatch({ type: CLEAR_ERRORS });
       dispatch({ type: SET_AUTHENTICATED });
@@ -25,7 +25,7 @@ export const loginUser = (userData, history) => (dispatch) => {
 export const signupUser = (userData, history) => (dispatch) => {
   dispatch({ type: LOADING });
   axios
-    .post('/signup', userData)
+    .post('/api/signup', userData)
     .then((res) => {
       dispatch({ type: CLEAR_ERRORS });
       dispatch({ type: SET_AUTHENTICATED });
@@ -38,7 +38,7 @@ export const signupUser = (userData, history) => (dispatch) => {
 
 export const getUserData = () => (dispatch) => {
   axios
-    .get('/user')
+    .get('/api/user')
     .then((res) => {
       dispatch({ type: SET_USER, payload: res.data });
     })
