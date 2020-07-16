@@ -8,6 +8,12 @@ import { SHOW_CREATE_TWEET, UNSHOW_CREATE_TWEET } from '../redux/types';
 import StartCreate from '../components/CreateTweet/StartCreate/StartCreate';
 import { createTweetAction } from '../redux/actions/dataActions';
 import CreateTweet from '../components/CreateTweet/CreateTweet';
+import { INC_COMMENT_COUNT, DEC_COMMENT_COUNT } from '../redux/types';
+import {
+  likeATweet,
+  unlikeATweet,
+  deleteTweet,
+} from '../redux/actions/dataActions';
 class Home extends PureComponent {
   state = {
     tweetBody: '',
@@ -57,6 +63,17 @@ class Home extends PureComponent {
                     tweetId={tweet.tweetId}
                     history={this.props.history}
                     key={tweet.createdAt}
+                    incCommentCount={(tweetId) =>
+                      this.props.incCommentCount(tweetId)
+                    }
+                    decCommentCount={(tweetId) =>
+                      this.props.decCommentCount(tweetId)
+                    }
+                    likeTweet={(tweetId) => this.props.likeTweet(tweetId)}
+                    unlikeTweet={(tweetId) => this.props.unlikeTweet(tweetId)}
+                    deleteTweetAction={(tweetId) =>
+                      this.props.deleteTweetAction(tweetId)
+                    }
                   />
                 ))}
             </div>
@@ -98,10 +115,18 @@ const mapStateToProps = ({
   showCreate,
   loading,
 });
+
 const mapDispatchToProps = (dispatch) => ({
   unShowCreate: () => dispatch({ type: UNSHOW_CREATE_TWEET }),
   createTweet: (tweetBody) => dispatch(createTweetAction(tweetBody)),
   showCreateAction: () => dispatch({ type: SHOW_CREATE_TWEET }),
+  incCommentCount: (tweetId) =>
+    dispatch({ type: INC_COMMENT_COUNT, payload: tweetId }),
+  decCommentCount: (tweetId) =>
+    dispatch({ type: DEC_COMMENT_COUNT, payload: tweetId }),
+  likeTweet: (tweetId) => dispatch(likeATweet(tweetId)),
+  unlikeTweet: (tweetId) => dispatch(unlikeATweet(tweetId)),
+  deleteTweetAction: (tweetId) => dispatch(deleteTweet(tweetId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

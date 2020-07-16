@@ -10,11 +10,14 @@ import signup from './pages/signup';
 import home from './pages/home';
 import user from './pages/user/user';
 import profile from './pages/profile/profile';
+import FullTweet from './components/FullTweet/FullTweet';
 import './App.css';
 import Header from './components/Header/Header';
 import axios from 'axios';
 let token = localStorage.FBIdToken;
 let refreshToken = localStorage.refreshToken;
+axios.defaults.baseURL =
+  'https://us-central1-my-social-app-fdb68.cloudfunctions.net';
 if (token) {
   const decodedToken = jwtDecode(localStorage.getItem('FBIdToken'));
   if (Date.now() >= decodedToken.exp * 1000) {
@@ -45,7 +48,11 @@ const App = () => {
             <Route component={signup} path='/signup' exact />
             <Route component={login} path='/login' exact />
             <Route component={profile} path='/profile' exact />
-
+            <Route
+              component={FullTweet}
+              path='/users/:username/tweets/:tweetId'
+              exact
+            />
             <Route component={home} path='/' exact />
             {/*404 page*/}
             {/* <Route render={() => <h2>Not Found</h2>} /> */}

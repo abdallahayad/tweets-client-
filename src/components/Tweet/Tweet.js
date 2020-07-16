@@ -1,16 +1,11 @@
-import React, { Component } from 'react';
-import Comment from '../Comment/Comment';
-import { INC_COMMENT_COUNT, DEC_COMMENT_COUNT } from '../../redux/types';
-import {
-  likeATweet,
-  unlikeATweet,
-  deleteTweet,
-} from '../../redux/actions/dataActions';
+import React, { Component, Fragment } from 'react';
 import dayjs from 'dayjs';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import styles from './Tweet.module.css';
+import FullTweet from '../FullTweet/FullTweet';
 import axios from 'axios';
+import Backdrop from '../../util/Backdrop/Backdrop';
 class Tweet extends Component {
   CancelToken = axios.CancelToken;
   source = this.CancelToken.source();
@@ -20,57 +15,25 @@ class Tweet extends Component {
       comments: [],
       show: false,
       comment: '',
+      oldPath: null,
     };
     this.commentRef = React.createRef();
-  }
-  componentDidMount() {
-    this.getFulltweetData(this.source);
-  }
-
-  componentWillUnmount() {
-    this.source.cancel('Cancelled');
   }
 
   onChangeHandler = (e) => {
     this.setState({ comment: e.target.value });
   };
-  deleteComment = (commentId, tweetId) => {
-    axios.delete(`/api/tweet/${tweetId}/${commentId}`).then((res) => {
-      this.setState({
-        comments: this.state.comments.filter(
-          (comment) => comment.commentId !== res.data.commentId
-        ),
-      });
-      this.props.decCommentCount(tweetId);
-    });
-  };
-  submitComment = (e) => {
-    if (e.keyCode === 13) {
-      this.setState({ comment: '' });
-      axios
-        .post(`/api/tweet/${this.props.tweetId}/comment`, {
-          body: this.state.comment,
-        })
-        .then((res) => {
-          this.setState({
-            comments: this.state.comments.concat(res.data),
-            show: true,
-          });
-          this.props.incCommentCount(this.props.tweetId);
-        });
-    }
-  };
-  getFulltweetData = (source) => {
-    axios
-      .get(`/api/tweet/${this.props.tweetId}`, { cancelToken: source.token })
-      .then((res) => {
-        this.setState({ comments: res.data.comments });
-      });
+
+  showFullTweet = () => {
+    this.props.history.push(
+      `/users/${this.props.username}/tweets/${this.props.tweetId}`
+    );
   };
   toggleShow = () => {
-    this.setState((prevState) => {
-      return { ...this.state, show: !prevState.show };
-    });
+    const oldPath = window.location.pathname;
+    const newPath = `/users/${this.props.username}/tweets/${this.props.tweetId}`;
+    window.history.pushState(null, null, newPath);
+    this.setState({ show: true, oldPath });
   };
   onComment = () => {
     this.commentRef.current.focus();
@@ -80,6 +43,10 @@ class Tweet extends Component {
   };
   unlikeTweet = () => {
     this.props.unlikeTweet(this.props.tweetId);
+  };
+  closeFullTweet = () => {
+    this.setState({ show: false });
+    window.history.pushState(null, null, this.state.oldPath);
   };
   render() {
     let likeButton;
@@ -101,28 +68,7 @@ class Tweet extends Component {
       }
     }
     let deleteButton;
-    const comments = this.state.comments
-      ? this.state.comments
-          .sort((a, b) => {
-            return a.createdAt < b.createdAt
-              ? 1
-              : a.createdAt > b.createdAt
-              ? -1
-              : 0;
-          })
-          .map((comment, index) => (
-            <Comment
-              comment={comment}
-              key={comment.createdAt}
-              index={index}
-              commentsLength={this.state.comments.length}
-              authUser={
-                this.props.user ? this.props.user.credentials.username : null
-              }
-              deleteComment={this.deleteComment}
-            />
-          ))
-      : null;
+
     if (this.props.user) {
       if (this.props.user.credentials.username === this.props.username) {
         deleteButton = (
@@ -138,63 +84,73 @@ class Tweet extends Component {
       deleteButton = null;
     }
     return (
-      <div
-        className={styles.tweet}
-        style={this.props.style ? this.props.style : null}
-      >
-        <div className={styles.tweetHeader}>
-          <div className={styles.tweetInfo}>
-            <div className={styles.tweetImg}>
-              <img src={this.props.userImage} alt='user' />
+      <Fragment>
+        <div
+          className={styles.tweet}
+          style={this.props.style ? this.props.style : null}
+        >
+          <div className={styles.tweetHeader}>
+            <div className={styles.tweetInfo}>
+              <div className={styles.tweetImg}>
+                <img src={this.props.userImage} alt='user' />
+              </div>
+              <NavLink
+                className={styles.userLink}
+                to={`/users/${this.props.username}`}
+              >
+                <h4 className={styles.username}>@{this.props.username}</h4>
+              </NavLink>
             </div>
-            <NavLink
-              className={styles.userLink}
-              to={`/users/${this.props.username}`}
-            >
-              <h4 className={styles.username}>@{this.props.username}</h4>
-            </NavLink>
+            <div>
+              {deleteButton}
+              <button
+                className={styles.tweetExpand}
+                onClick={
+                  this.props.onClick
+                    ? this.props.onClick
+                    : this.props.expand
+                    ? this.showFullTweet
+                    : this.toggleShow
+                }
+              >
+                <i className='fas fa-expand-alt fa-sm' aria-hidden='true'></i>
+              </button>
+            </div>
           </div>
-          <div>
-            {deleteButton}
-            <button className={styles.tweetExpand} onClick={this.toggleShow}>
-              <i className='fas fa-expand-alt fa-sm' aria-hidden='true'></i>
+
+          <div className={styles.tweetBody}>{this.props.body}</div>
+          <h6 className={styles.tweetDate}>
+            {dayjs(this.props.createdAt).format('DD/MM/YYYY')}
+          </h6>
+          <h6 className={styles.tweetTime}>
+            {dayjs(this.props.createdAt).format('h:mm:ss a')}
+          </h6>
+          <div className={styles.tweetActions}>
+            {likeButton}
+            <button
+              className={styles.commentButton}
+              onClick={this.props.expand ? this.showFullTweet : this.toggleShow}
+            >
+              <i className='far fa-comment'></i>
             </button>
           </div>
-        </div>
 
-        <div className={styles.tweetBody}>{this.props.body}</div>
-        <h6 className={styles.tweetDate}>
-          {dayjs(this.props.createdAt).format('DD/MM/YYYY')}
-        </h6>
-        <h6 className={styles.tweetTime}>
-          {dayjs(this.props.createdAt).format('h:mm:ss a')}
-        </h6>
-        <div className={styles.tweetActions}>
-          {likeButton}
-          <button className={styles.commentButton} onClick={this.onComment}>
-            <i className='far fa-comment'></i>
-          </button>
+          <div className={styles.tweetStuff}>
+            <p>
+              <strong>{this.props.likeCount}</strong> Likes
+            </p>
+            <p>
+              <strong>{this.props.commentCount}</strong> Comments
+            </p>
+          </div>
         </div>
-
-        <div className={styles.tweetStuff}>
-          <p>
-            <strong>{this.props.likeCount}</strong> Likes
-          </p>
-          <p>
-            <strong>{this.props.commentCount}</strong> Comments
-          </p>
-        </div>
-        <input
-          className={styles.input}
-          placeholder='Write a comment'
-          onKeyDown={this.submitComment}
-          value={this.state.comment}
-          onChange={this.onChangeHandler}
-          ref={this.commentRef}
-        />
-
-        {this.state.show ? comments : null}
-      </div>
+        {this.state.show && (
+          <Fragment>
+            <Backdrop onClick={this.closeFullTweet} />
+            <FullTweet tweetId={this.props.tweetId} focus={this.state.focus} />
+          </Fragment>
+        )}
+      </Fragment>
     );
   }
 }
@@ -203,13 +159,5 @@ const mapStateToProps = (state) => ({
   user: state.user.userData,
   auth: state.user.auth,
 });
-const mapActionsToProps = (dispatch) => ({
-  incCommentCount: (tweetId) =>
-    dispatch({ type: INC_COMMENT_COUNT, payload: tweetId }),
-  decCommentCount: (tweetId) =>
-    dispatch({ type: DEC_COMMENT_COUNT, payload: tweetId }),
-  likeTweet: (tweetId) => dispatch(likeATweet(tweetId)),
-  unlikeTweet: (tweetId) => dispatch(unlikeATweet(tweetId)),
-  deleteTweetAction: (tweetId) => dispatch(deleteTweet(tweetId)),
-});
-export default connect(mapStateToProps, mapActionsToProps)(Tweet);
+
+export default connect(mapStateToProps)(Tweet);
